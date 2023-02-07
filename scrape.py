@@ -1,12 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-import time
+from selenium.webdriver.common.by import By
 
 
-keyword = str(input("What flavour are you looking for? "))
+
+# keyword = str(input("What flavour are you looking for? "))
 
 URL = "https://hotchocolatefest.com/list-of-flavours"
 raw_vendors = []
@@ -36,6 +38,11 @@ for item in raw_vendors:
 all_vendors = list(dict.fromkeys(all_vendors))
 
 
+# Create a file to write to, add headers row
+file = csv.writer(open('hotchoccontents.csv', 'w'))
+header = ["Link", "Content"]
+file.writerow(header)
+
 # Uses Selenium to open each vendor's page and search for the keyword
 for link in all_vendors:
     chrome_options = Options()
@@ -43,8 +50,11 @@ for link in all_vendors:
     driver = webdriver.Chrome(service=Service('/usr/local/bin/chromedriver'),
                               options=chrome_options)
     driver.get(link)
-    get_source = driver.page_source
-    search_text = keyword
-    if search_text in get_source:
-        print(link)
-    time.sleep(2)
+    get_source = driver.find_element(By.XPATH, "//body[starts-with(@class, 'x  x-fonts-league-spartan x-fonts-montserrat')]")
+    content = get_source.get_attribute('innerHTML')
+    file.writerow([link, content])
+
+#    search_text = keyword
+#    if search_text in get_source:
+#        print(link)
+#    time.sleep(2)

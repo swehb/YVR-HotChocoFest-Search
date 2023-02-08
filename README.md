@@ -4,7 +4,7 @@ Vancouver, BC has an annual hot chocolate festival with numerous vendors. As of 
 This program was written with Python. It uses Selenium and BeautifulSoup. 
 
 ## How to use
-The program can be ran from terminal. 
+To populate or update the csv file, run scrape.py. To search for a keyword, run main.py. 
 
 ## To Do
 - [x] Gather the href of all vendors into a list - use BeautifulSoup
@@ -12,5 +12,6 @@ The program can be ran from terminal.
 - [x] Remove duplicates in list
 - [x] Open each page and search if keyword exists, if it does return link to that page
 - [x] Make keyword search input value and not hardcoded
-- [ ] Make the keyword search case insensitive
-- [ ] Cache data to make search go faster
+- [x] Make the keyword search case insensitive
+- [x] Make scrape.py to scrape website and then write content into a csv file
+- [x] Main.py searches for entered keyword in the csv file and return the link to the vendor page
